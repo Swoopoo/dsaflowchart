@@ -1,0 +1,58 @@
+\chapter{Schaden / Wunden}
+\spp{
+    *) \textit{Eisern} / \textit{Glasknochen}: -2/+2\\
+    **) Bei steifen Rüstungen (Eisen, auch beschlagene Teile!)\\
+    ***) +8/+12 bei 2/3 Wunden gleichzeitig. Es wird nur EINMAL gewürfelt.\\
+\begin{center}
+    \begin{tabularx}{\linewidth}{ccXX}
+        \hline
+        \textbf{Zone} & \textbf{W20} & \textbf{Erste \& Zweite Wunde} & \textbf{Dritte Wunde}\\
+        \hline
+        Kopf & 19-20 & MU, KL, IN, INI-Basis -2, INI -2W6 & +2W6 SP,  bewusstlos, Blutverlust\\
+        \hline
+        Brust & 15-18 & AT, PA, KO, KK-1; +1W6 SP & bewuswstlos, Blutverlust\\
+        \hline
+        Arme* & 9-14 & AT, PA, KK, FF -2 mit diesem Arm & Arm handlungsunfähig\\
+        \hline
+        Bauch & 7-8 & AT, PA, KO, KK, GS, INI-Basis -1; +1W6 SP & bewusstlos, Blutverlust\\
+        \hline
+        Beine* & 1-6 & AT; PA, GE, INI-Basis -2; GS -1 & Sturz, kampfunfähig\\
+        \hline
+        \multicolumn{4}{l}{*) Ungerade: Schildarm, Gerade: Schwertarm}
+    \end{tabularx}
+    \textbf{Keine Neuberechnung} der AT, PA, FK und INI-Basiswerte!
+\end{center}
+}{
+\begin{center}
+    \begin{tikzpicture}[node distance = 3cm, auto]
+            % Nodes
+        \node [block] (init) {\hypertarget{schaden}{Wird getroffen}};
+        \node [block, below  of=init] (zone) {Zone würfeln};
+        \node [block, below of=zone] (rs) {RS verrechnen};
+        \node [decision, below of=rs] (dec) {SP > KO/2?*};
+        \node [decision, below left of=dec] (wunde) {\textit{Selbstbeh.} + (SP-KO/2)};
+        \node [block, below left of=wunde] (ko){1W6+3 KR kampfunfähig};
+        \node [decision, below right of=wunde] (kons) {\textit{Selbstbeh.} + 4***};
+        \node [block, below right of=dec] (lep) {LeP sinken um SP};
+        \node [block, below right of=kons] (abz) {Auswirkung der Wunde, LeP sinken um SP};
+
+        \node [block, right of=zone] (dmg) {\textbf{TP} > 20?};
+        \node [block, below of=dmg] (end) {BE der Rüstung steigt um 1**};
+
+            % Edges
+            \path [line] (init) -- (zone);
+            \path [line] (zone) -- node {TP} (rs);
+            \path [line] (rs) -- node {SP} (dec);
+            \path [line] (dec) -- node {Ja} (wunde);
+            \path [line] (dec) -- node {Nein} (lep);
+            \path [line] (wunde) -- node {Ja} (ko);
+            \path [line] (wunde) -- node {Nein} (kons);
+            \path [line] (kons) -- node {Ja} (lep);
+            \path [line] (kons) -- node {Nein} (abz);
+
+            \path[line] (zone) -- (dmg);
+            \path[line] (dmg) -- node {Ja} (end);
+    \end{tikzpicture}\\
+
+\end{center}
+}

@@ -1,0 +1,102 @@
+\chapter{Aktionen}
+\spp{
+\section{Abwarten}
+\hypertarget{abwarten}{}
+Man muss unterscheiden zwischen \textit{verzögern} und \textit{abwarten}.
+
+\textbf{Abwarten} kann \textit{nur} derjenige mit der höheren INI. Sollten beide Parteien eines Zweikampfes verzögern:
+
+In dem Fall nehmen beide ihre aufgesparte Aktion mit in die nächste Runde, zu
+Beginn der Runde (also noch bevor einer der beiden mit der INI dran ist)
+attackiert derjenige mit der höheren INI (muss er natürlich nicht, aber
+jedenfalls ist dies die kluge Vorgehensweise). Der mit der niedrigeren INI
+kann sich dann entscheiden seine aufgesparte Aktion zu verlieren und seine
+Parade dieser Runde zu verwenden oder er kriegt einen unparierbaren Angriff,
+wenn der trifft muss er eine \textit{Selbstbeherrschungs}-Probe + SP hinlegen oder er
+\textbf{verliert} seine aufgesparte Aktion.
+
+\mbox{}
+\vfill
+\hline
+\mbox{}
+\vfill
+\textbf{*)} Ausführender selbst zählt \textbf{nicht} als Beteiligter!
+
+\textbf{**)} Freiwillig um doppelte Überzahl der Gegner erschwert, dann fällt Überzahlbonus weg.
+
+\textbf{***)} Max. 6 auf INI Werte der Beteiligten (\textbf{nicht} er selbst), wenn \textbf{positiver} Kriegskunstwert.
+}{
+    \section{Taktik}
+    \textbf{Einmal} pro KR und einmalig pro Beteiligtem!
+\begin{center}
+    \begin{tikzpicture}[node distance = 2cm, auto]
+            % Nodes
+        \node [block] (init) {Anführer (höchste Kriegskunst)};
+        \node [decision, below of=init] (ueberr) {Überra.?};
+        \node [right of=ueberr] {Nein};
+        \node [block, below = 1cm of ueberr] (in) {Erst nach \textbf{IN} Probe};
+        \node [block, below of=in] (dec) {Festlegen der Beteiligten *};
+        \node [decision, below of=dec] (kk) {\textit{Kriegskunst} Probe**};
+        \node [block, below left = 1cm of kk] (jo) {\textbf{TaP*} gleichmäßig ***};
+        \node [block, below right = 1cm of kk] (no) {-1 INI für jeden \textbf{Beteiligten}};
+            % Edges
+        \path [line] (init) -- (ueberr);
+        \path [line] (ueberr) --node[left] {Ja} (in);
+        \draw [line] (ueberr) to [bend left=60] (dec);
+        \path [line] (in) -- (dec);
+        \path [line] (dec) -- (kk);
+        \path [line] (kk) --node [above left] {Ja} (jo);
+        \path [line] (kk) --node {Nein} (no);
+    \end{tikzpicture}
+\end{center}
+}
+\newpage
+\section{Meucheln / Betäuben}
+Vorraussetzungen: 
+\begin{enumerate}
+    \item Kommt an Opfer unbemerkt heran (\textit{Schleichen} / \textit{Sich Verstecken})
+    \item passende Waffe in der Hand, die \textbf{Opfer nicht bemerkt hat}
+    \item Opfer muss \textbf{völlig} ahnungslos sein
+\end{enumerate}
+\begin{center}
+    \begin{tikzpicture}[node distance = 2cm, auto]
+            % Nodes
+        \node [block] (init) {Opfer ahnungslos};
+        \node [block, below of=init] (hit) {Attacke*};
+        \node [decision, below of=hit] (vorn) {Von vorne?};
+        \node [decision, left of=vorn] (vornjo) {\textbf{IN} Probe Opfer};
+        \node [decision, below = 1cm of vornjo] (inpro) {\textit{Raufen}-PA +8};
+        \node [block, below = 1cm of vorn] (treffer) {Schaden};
+        \node [decision, right = 2cm of treffer] (toeten) {Töten?};
+        \node [block, above = 1cm of toeten] (tp) {TP = SP; SP x3**};
+        \node [block, right = 1cm of toeten] (bet) {TP = SP(A)};
+        \node [decision, above of=bet] (wund) {AU-Verl. > KO/2};
+        \node [decision, above of=wund] (wund2) {AU-Verl. > KO};
+        \node [block, right = 1cm of wund2] (end) {1W6 SR bewusstlos};
+        \node [decision, below = 1cm of end] (prob) {\textbf{KO} + SP(A)};
+            % Edges
+        \path [line] (init) -- (hit);
+        \path [line] (hit) -- (vorn);
+        \path [line] (vorn) --node[above] {Ja} (vornjo);
+        \path [line] (vorn) --node[right] {Nein} (treffer);
+        \path [line] (vornjo) --node[above right] {Nein} (treffer);
+        \path [line] (vornjo) --node[left] {Ja} (inpro);
+        \path [line] (inpro) --node[above] {Nein} (treffer);
+        \path [line] (treffer) -- (toeten);
+        \path [line] (toeten) --node[above] {Nein} (bet);
+        \path [line] (toeten) --node[left] {Ja} (tp);
+        \path [line] (bet) -- (wund);
+        \path [line] (wund) --node[left] {Ja} (wund2);
+        \path [line] (wund) --node[below] {Nein} (end);
+        \path [line] (wund2) --node[above] {Ja} (prob);
+        \path [line] (prob) --node[left] {Nein} (end);
+
+
+    \end{tikzpicture}
+\end{center}
+\textbf{*)} Je nach Situation um 5 (ahnungslos) bzw. 8 (schläft, bewusstlos,
+gefesselt). Mit \textit{Gezielter Stich} um bis zu 8 erschwerbar.
+\textit{Anatomie}-Probe: Voller Schaden (wie 6 gewürfelt). Bei
+\textbf{Trefferzone} mit \textit{Gezielter Stich} nur halber Aufschlag.
+
+\textbf{**)} Nur mit Dolch, Fechtwaffen und Schwertern möglich.

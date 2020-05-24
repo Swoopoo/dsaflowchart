@@ -1,0 +1,207 @@
+\documentclass[%>>>
+     fontsize=11pt%
+    %,twoside%
+    ,ngerman%
+    ,paper=a4%
+    ,toc=listof%
+    ,toc=bib%
+    ,BCOR=3mm%
+    ,DIV=13%
+    ,open=any% ,capMBOM 651tions=tableabove% ,headings=normal%
+]{scrreprt}%<<<
+
+
+\includeonly{
+    ./Talente/talente,
+    ./Kampf/Home/home,
+    ./Kampf/Angriff/angriff,
+    ./Kampf/Parade/parade,
+    ./Kampf/Ausweichen/ausweichen,
+    ./Kampf/Schaden/schaden,
+    ./Kampf/Aktionen/aktionen,
+    ./Kampf/Patzer/patzer,
+    ./Kampf/Passierschlag/passierschlag,
+    ./Kampf/Krit/krit,
+    ./Kampf/Waffenlos/waffenlos,
+}
+
+
+% Packages >>>
+\usepackage[utf8]{inputenc}      % usage of most utf8 characters on input
+\usepackage[T1]{fontenc}         % usage of correct font encoding for Umlauts
+\usepackage{lmodern}             % scalable and slightly better looking font
+\usepackage{amsmath}             % mathematics
+%\usepackage{mathtools}           % useful stuff for spacing etc.
+\usepackage{graphicx}            % easy include of images
+\usepackage{float}
+\usepackage{booktabs}            % prettier tables
+\usepackage[table]{xcolor}       % easy to use coloring
+%\usepackage{multirow}            % more than one row in a table column
+\usepackage{longtable}           % page breakable tables
+\usepackage{collcell}            % make a cell the argument of a command
+\usepackage{array}               % cool stuff for tables and the like
+\usepackage{placeins}            % better control over placement of figures
+\usepackage{csquotes}            % to silence biblatex's warnings concerning it
+\usepackage{scrlayer-scrpage}    % page header and footer configuration >>>
+\usepackage{pdfpages}
+\usepackage{multicol}
+\usepackage{wrapfig}
+\usepackage{tikz-qtree}
+\setlength{\columnsep}{1cm}
+    \KOMAoptions{%
+        ,headsepline=true%
+        ,headinclude=true%
+        %,headlines=2%
+    }
+    \setkomafont{pageheadfoot}{\sffamily}
+    \ihead*{\headmark}
+    \chead*{}
+    \ohead*{DSA Flowcharts}
+    \ifoot*{}
+    \cfoot*{}
+    \ofoot*{\pagemark}
+    \pagestyle{scrheadings}
+    \renewcommand*{\chapterpagestyle}{scrheadings}
+    \automark[chapter]{chapter} % both right and left chapters
+    %\automark*[section]{} % if there is a section right head containing section
+\usepackage[% babel >>>          % German language
+    main=ngerman%
+    ,english%
+]{babel}%<<<
+\usepackage{pgf}                 % plots
+\usepackage{xparse}              % better/easier macro creation
+\usepackage{setspace}            % consistent spacing
+\usepackage[export]{adjustbox}
+\usepackage{multicol}
+\usepackage{tabularx}
+\usepackage{tabulary}
+\usepackage{siunitx}             % consistent units and numbers formatting
+\usepackage{wrapfig}
+\usepackage{microtype}
+\usepackage{framed}
+\usepackage{enumitem}
+\usepackage[pdftex,pdfpagelabels,bookmarks,hyperindex,hyperfigures]{hyperref}
+\usepackage{lipsum}
+\usepackage{xparse}
+%<<<
+
+\NewDocumentCommand\ts{ O{} m }{_{#1\text{#2}}}%
+\newtheorem{defi}{Definition}[section]
+\newcommand{\laplace}{\Delta}
+\setcounter{tocdepth}{5}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{\baselineskip}
+\setlist{itemsep=0pt,parsep=0pt}
+
+\newcommand{\fett}[2]{\textbf{\textit{{\color{#1}#2 }}}}
+\newcommand{\fetts}[1]{\textbf{\textit{{\color{blue}#1 }}}}
+\newcommand{\comm}[1]{
+\begin{leftbar}
+	#1
+\end{leftbar}
+}
+\newcommand{\ggline}[2]{\textbf{#1} & \multicolumn{6}{l}{#2}\\}
+
+\newcommand{\fmip}[1]{
+  \begin{fminipage}{\textwidth}
+	#1
+\end{fminipage}
+}
+\newcommand{\parline}[1]{\paragraph{#1}\mbox{}\\}
+\newcommand{\subparline}[1]{\subparagraph{\fetts{#1}}\mbox{}\\}
+\newcommand{\hylin}[2]{\hyperlink{#1}{\color{red}\textbf{#2}}}
+\newcommand{\hylt}[3]{\hypertarget{#1}{\hylin{#2}{#3}}}
+\newcommand{\spp}[2]{
+\noindent
+\begin{minipage}[t]{.45\textwidth}
+    \vspace{0pt}
+    #1
+\end{minipage}
+\hfill\vline\hfill
+\begin{minipage}[t]{.45\textwidth}
+    \vspace{0pt}
+    \raggedleft
+    #2
+\end{minipage}
+}
+
+\newcommand{\pers}[5]{
+    \comm{
+    \fetts{#1}
+
+    \textit{\underline{Erscheinung}:} #2 
+
+    \textit{\underline{Charakter}:} #3 
+
+    \textit{\underline{Darstellung}:} #4 
+
+    \textit{\underline{Weiteres}:} #5 
+    }
+}
+
+
+
+\newsavebox{\fminipagebox}
+\NewDocumentEnvironment{fminipage}{m O{\fboxsep}}
+{\par\kern#2\noindent\begin{lrbox}{\fminipagebox}
+		\begin{minipage}{#1}\ignorespaces}
+		{\end{minipage}\end{lrbox}%
+	\makebox[#1]{%
+		\kern\dimexpr-\fboxsep-\fboxrule\relax
+		\fbox{\usebox{\fminipagebox}}%
+		\kern\dimexpr-\fboxsep-\fboxrule\relax
+	}\par\kern#2
+}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usetikzlibrary{shapes,arrows}
+\tikzstyle{decision} = [diamond, draw, fill=blue!20, 
+    text width=4.5em, text badly centered, node distance=3cm, inner sep=0pt]
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+    text width=5em, text centered, rounded corners, minimum height=4em]
+\tikzstyle{line} = [draw, -latex']
+\tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=3cm,
+    minimum height=2em]
+
+
+\begin{document}
+\chapter{Einleitung}
+Cheatsheet Sammlung und Flussdiagramme für wichtige Abläufe in DSA.
+    \include{./Talente/talente}
+    \include{./Kampf/Home/home}
+    \include{./Kampf/Angriff/angriff}
+    \include{./Kampf/Parade/parade}
+    \include{./Kampf/Ausweichen/ausweichen}
+    \include{./Kampf/Schaden/schaden}
+    \include{./Kampf/Patzer/patzer}
+    \include{./Kampf/Passierschlag/passierschlag}
+    \include{./Kampf/Krit/krit}
+    \include{./Kampf/Waffenlos/waffenlos}
+    \include{./Kampf/Aktionen/aktionen}
+    \addcontentsline{toc}{chapter}{Angriffsmanöver}
+    \hypertarget{angriffskarten}{}
+    \includepdf[pages=-]{Kampf/Angriff/Angriffsaktionen.pdf}
+    \phantomsection
+
+    \addcontentsline{toc}{chapter}{Fernkampfmanöver}
+    \hypertarget{fernkampfkarten}{}
+    \includepdf[pages=-]{Kampf/Angriff/Fernkampfaktionen.pdf}
+    \phantomsection
+
+    \addcontentsline{toc}{chapter}{Waffenloser Kampf}
+    \hypertarget{waffenloskarten}{}
+    \includepdf[pages=-]{Kampf/Angriff/Waffenlos.pdf}
+    \phantomsection
+
+    \addcontentsline{toc}{chapter}{Parademanöver}
+    \hypertarget{abwehrkarten}{}
+    \includepdf[pages=-]{Kampf/Parade/Abwehraktionen.pdf}
+    \phantomsection
+
+    \addcontentsline{toc}{chapter}{Übersichtkarten}
+    \hypertarget{übersichtkarten}{}
+    \includepdf[pages=-]{Kampf/Home/uebersicht.pdf}
+    \phantomsection
+\end{document}

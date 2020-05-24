@@ -1,0 +1,81 @@
+\chapter{Kampfablauf}
+\spp{
+\section{Kampfbeginn}
+\begin{center}
+    \begin{tikzpicture}[node distance = 3cm, auto]
+            % Nodes
+        \node [cloud] (init) {Start} ;
+        \node [block, below of=init] (initiative) {\hypertarget{initiativestart}{\hylin{initiative}{Initiative}}};
+        \node [block, below of=initiative] (ansage) {Ansage von niedrigster Initiative an};
+        \node [block, right of=ansage] (hinweis) {Manöver mit 2 Aktionen nicht umwandelbar};
+        \node [block, below of=ansage] (ausf) {Ausführung von höchster Initiative an};
+        \node [block, below of=ausf] (angr) {\hypertarget{angriffstart}{\hylin{angriff}{Angriff}}};
+        \node [block, below of=angr] (par) {\hylt{paradestart}{parade}{Parade}};
+            % Edges
+        \path [line] (init) -> (initiative);
+        \path [line] (initiative) -> (ansage);
+        \path [line] (ansage) -> (ausf);
+        \path [line] (ausf) -> (angr);
+        \path [line] (angr) -> (par);
+    \end{tikzpicture}
+\end{center}
+}{
+    \section{Ablauf eines Initiativeschritts}
+    \begin{center}
+        \begin{tikzpicture}[node distance = 3cm, auto]
+                % Nodes
+            \node [cloud] (init) {Du bist dran};
+            \node [decision, below of=init] (aufmerk) {Aufm.?};
+            \node [decision, below left of=aufmerk] (ans) {Abwar.?};
+            \node [block, below left of=ans] (abw) {\hylin{abwarten}{Abwarten}};
+            \node [block, below right of=ans] (aend) {Ansage ändern};
+            \node [block, below of=aend] (ausf) {Ausführen};
+            \node [below right = 0.5cm of aufmerk] (no) {Nein};
+                % Edges
+            \path [line] (init) -- (aufmerk);
+            \path [line] (aufmerk) --node[above left] {Ja} (ans);
+            \path [line] (ans) --node[above left] {Ja} (abw);
+            \draw [line] (aufmerk) to [bend left=40] (ausf);
+            \path [line] (ans) --node[above right] {Nein} (aend);
+            \path [line] (aend) -- (ausf);
+        \end{tikzpicture}
+    \end{center}
+}
+\newpage
+\section{Initiative / Hinterhalt}
+\begin{minipage}[t]{\linewidth}
+\begin{center}
+    \begin{tikzpicture}[node distance = 3cm, auto]
+            % Nodes
+        \node [cloud] (init) {\hypertarget{initiative}{\hylin{initiativestart}{Initiative}}} ;
+        \node [decision, below of=init] (surpr) {Überrascht};
+        \node [decision, below left of=surpr] (surprja) {Hinterhalt};
+        \node [block, below right of=surpr] (surprno) {Initiative Wurf};
+        \node [block, below right of=surprja] (hintno) {\textbf{IN}/KR für Ini Wurf*};
+        \node [block, below left of=surprja] (hintja) {Freie Handlung f. Angreifenden};
+        \node [block, below of=hintja] (hintausw) {\textbf{IN}(+3 bei Fernkampf) zum Parieren/Ausw.};
+            % Edges
+        \path [line] (init) -- (surpr);
+        \path [line] (surpr) -- node[above left] {Ja} (surprja);
+        \path [line] (surpr) -- node {Nein} (surprno);
+        \path [line] (surprja) -- node {Nein} (hintno);
+        \path [line] (surprja) -- node[above left] {Ja} (hintja);
+        \path [line] (hintja) -- (hintausw);
+        \draw [line]    (hintausw) to[out=0,in=-90] (hintno);
+    \end{tikzpicture}
+\end{center}
+\end{minipage}
+\spp{
+    \begin{center}
+        \begin{tabularx}{\linewidth}{|c|X|}
+            \multicolumn{2}{l}{\textbf{*)} Erleichterungen der Probe zu KR Beginn}\\
+            \hline
+           -1 / 2 TaP &  \textit{Kriegskunst}, \textit{Gefahreninstinkt}\\
+           \hline
+           -4 & \textit{Aufmerksamkeit}, \textit{Kampfgespür}\\
+           \hline
+        \end{tabularx}
+    \end{center}
+}{
+    Auf Aktion \textit{Waffe ziehen} achten!
+}

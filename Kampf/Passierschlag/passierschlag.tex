@@ -1,0 +1,24 @@
+\chapter{Passierschlag}
+\hypertarget{passierschlag}{}
+\begin{center}
+    \begin{tikzpicture}[node distance = 3cm, auto]
+        \node [block] (init) {Gegner bewegt sich in / durch \textit{Kontrollbereich*}};
+        \node [decision, below of=init] (dec1) {Test**};
+        \node [block, below left of=dec1] (schlag) {Attacke +4***};
+        \node [block, right = 2cm of schlag] (miss) {Gegner passiert};
+        \node [block, below of=schlag] (end) {TP \textit{und} -1W6 INI für Gegner};
+        % edges
+        \path [line] (init) -- (dec1);
+        \path [line] (dec1) --node[above left] {Ja} (schlag);
+        \path [line] (dec1) --node {Nein} (miss);
+        \path [line] (schlag) --node[left] {Ja} (end);
+        \path [line] (schlag) --node[above] {Nein} (miss);
+        \path [line] (end) -- (miss);
+    \end{tikzpicture}
+\end{center}
+\textbf{*)} Bereich von 3 Feldern \textbf{VOR} Kämpfer.
+
+\textbf{**)} Gegner ignoriert Kämpfer \textit{und} Kämpfer ist nicht mit
+\textbf{längerfristiger Aktion} beschäftigt oder in \textbf{Unterzahl}.
+
+\textbf{***)} -WM der \textbf{Waffe die Passierschlag ausführt} auf Attacke-Modifikator. Gegen Opfer mit \textit{Aufmerksamkeit} um zusätzlich +4.

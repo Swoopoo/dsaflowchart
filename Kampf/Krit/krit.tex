@@ -1,0 +1,27 @@
+\chapter{Kritische Treffer}
+
+\begin{center}
+    \begin{tikzpicture}[node distance = 3cm, auto]
+        % nodes
+        \node [block] (init) {\textbf{1} bei Attackewurf};
+        \node [decision, below of=init] (par) {Parade / Ausw. mit \textbf{halbem} Wert!*};
+        \node [block, below left of=par] (pariert) {Angriff pariert.};
+        \node [decision, below right = 2cm of par] (hit) {Angriff bestätigen**};
+        \node [block, below right of=hit] (unbes) {Normaler Treffer};
+        \node [block, below left of=hit] (schaden) {Schaden erhöhen***};
+        % edges
+        \path [line] (init) -- (par);
+        \path [line] (par) --node{Nein}(hit);
+        \path [line] (par) --node[above left]{Ja}(pariert);
+        \path [line] (hit) --node[above left]{Ja}(schaden);
+        \path [line] (hit) --node{Nein}(unbes);
+    \end{tikzpicture}
+\end{center}
+\textbf{*)} Erschwernisse durch fehlgeschlagene Manöver oder Finten erst
+\textbf{nach} Halbierung verrechnen.
+
+\textbf{**)} Bestätigungswurf ist \textbf{genauso} erschwert wie der normale Angriff!
+
+\textbf{***)} Verdopplung der \textbf{Waffenschadenspunkte}, keine
+Verdopplung von Ansagen oder TP/KK. Zählt immer nur der höchste Modifikator
+(\textbf{Hammerschlag} trotzdem nur x3)!
