@@ -51,7 +51,7 @@ Misslingen: \textbf{nächste} Aktion um gesamte \textbf{Ansage} erschwert.
             % Nodes
         \node [cloud] (init) {\hypertarget{fernkampf}{\textbf{FK} Angriff (Waffe rdy)}} ;
         \node [decision, below of=init] (atk) {Schnell.?};
-        \node [block, below left of=atk] (ssja) {Erschw. +2 (+0 Meist. schütz.)};
+        \node [block, below left of=atk] (ssja) {Erschw. +2 (+1 \textbf{S} / +2 \textbf{M})};
         \node [decision, below = 2cm of atk] (ssno) {Zielen / Ansage / Schießen?};
         \node [block, below right of=ssno] (ans) {+1 Akt / 2 Ansagepkt.*};
         \node [block, below left of=ssno] (ziel) {Erschw. -1(max 4) / 2 Akt.};
@@ -85,7 +85,24 @@ Misslingen: \textbf{nächste} Aktion um gesamte \textbf{Ansage} erschwert.
     \end{tabularx}
 \end{center}
 }{
+\begin{figure}[H]
+    \centering
 \includegraphics[width=.9\linewidth]{Kampf/Angriff/ladezeiten.png}
+\end{figure}
+\textbf{\underline{Scharfschütze}:}\\
+Schnellschuss -1; volle Ansage auf \textbf{TP}. Zwei Aktionen weniger zum
+Zielen, mind. eine. \textbf{Gezielter Schuss}: Erschw. nach Zonensystem, halb
+so viele Aktionen zum Zielen.
+
+\textbf{\underline{Meisterschütze}:}\\
+Schnellschuss -2; volle Ansage auf \textbf{TP}, maximal \textbf{FK}. Nur eine
+zusätzliche Aktion bei Ansage. Zum Zielen nur so viel Aktionen wie
+Erleichterung. \textbf{Gezielter Schuss}: Erschw. nach Zonensystem
+\textbf{halbiert}. Nur eine zusätzliche Aktion beim G.S. Ignoriert Zuschläge
+auf \textit{Seitenwind}/\textit{Steilschuss}.
+
+\textbf{\underline{Schnelladen}:}\\
+Ladezeit -1; Mind. 1 Akt.
 }
 \section{Erschwernistabelle}
 \begin{figure}[H]
